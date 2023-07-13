@@ -16,4 +16,8 @@ export class WeatherService {
   public getWeather(cityName: string) {
     return this.http.get(`${this.uri}${cityName}`); //me devuelve el objeto json
   }
+
+  public getWeatherByCoordinates(latitude: number, longitude: number) {
+    return this.http.get(`${this.uri}&lat=${latitude}&lon=${longitude}`);
+  }
 }
