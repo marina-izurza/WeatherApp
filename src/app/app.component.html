@@ -1,61 +1,70 @@
-<div class="container">
+<form (submit)="submitLocation(cityName)">
+  <input type="text" class="border-bottom" placeholder="City" #cityName>
+  <button class="btn">Search</button>
+</form>
+
+<div class="cont">
   <div class="upper-data">
-    <img src="../assets/hot.jpg" *ngIf="14 > 15">
-    <img src="../assets/cold.jpg" *ngIf="14 <= 15">
+    <img src="../assets/hot.jpg" *ngIf="weather && weather.main.temp >= 25">
+    <img src="../assets/cold.jpg" *ngIf="weather && weather.main.temp < 25">
 
     <div class="weather-data">
-      <div class="location">Wellington</div>
-      <div class="temperature">{{ 14 | number: '1.0-0' }}°C</div>
+      <div class="location" *ngIf="weather">
+        {{ weather.name }}
+      </div>
+      <div class="temperature" *ngIf="weather">
+        <span>{{ weather.main.temp.toFixed(1) }}°C</span>
+      </div>
+      <div class="desc" *ngIf="weather">
+        <span>{{ weather.weather[0].description | uppercase }}</span>
+      </div>
     </div>
   </div>
   <div class="lower-data">
     <div class="more-info-label">
-      More Information
+      More Details
     </div>
     <div class="more-info-container">
 
       <div class="info-block">
         <div class="info-block-label">
-          <img src="../assets/min.png">
+          <i class="fa-solid fa-temperature-arrow-down" style="color: #ffffff;"></i>
           <span>min</span>
         </div>
-        <div class="info-block-value">
-          10°C
+        <div class="info-block-value" *ngIf="weather">
+          <span>{{ weather.main.temp_min.toFixed(1) }}°C</span>
         </div>
       </div>
 
       <div class="info-block">
         <div class="info-block-label">
-          <img src="../assets/max.png">
+          <i class="fa-solid fa-temperature-arrow-up" style="color: #ffffff;"></i>
           <span>max</span>
         </div>
-        <div class="info-block-value">
-          20°C
+        <div class="info-block-value" *ngIf="weather">
+          <span>{{ weather.main.temp_max.toFixed(1) }}°C</span>
         </div>
       </div>
 
       <div class="info-block">
         <div class="info-block-label">
-          <img src="../assets/humidity.png">
+          <i class="fa-solid fa-water" style="color: #ffffff;"></i>
           <span>humidity</span>
         </div>
-        <div class="info-block-value">
-          77%
+        <div class="info-block-value" *ngIf="weather">
+          <span>{{ weather.main.humidity }}%</span>
         </div>
       </div>
 
       <div class="info-block">
         <div class="info-block-label">
-          <img src="../assets/wind.png">
+          <i class="fa-solid fa-wind" style="color: #ffffff;"></i>
           <span>wind</span>
         </div>
-        <div class="info-block-value">
-          11 km/h
+        <div class="info-block-value" *ngIf="weather">
+          <span>{{ weather.wind.speed.toFixed(1) }}km/h</span>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
-<router-outlet></router-outlet>
